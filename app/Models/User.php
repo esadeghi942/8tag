@@ -16,10 +16,10 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
+    protected $primaryKey='user_id';
+
+    protected $guarded = [
+        'user_id'
     ];
 
     /**
@@ -40,4 +40,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function leavements()
+    {
+        return $this->hasMany(Leavement::class,'user_id');
+    }
 }

@@ -271,3 +271,8 @@ ul {
 .datepicker-plot-area {
     font-family: 'Vazir', sans-serif;
 }
+
+img.user_image{
+    height: 20px;
+    width: 20px;
+}

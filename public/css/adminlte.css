@@ -8577,7 +8577,7 @@ body,
 }
 
 .content-wrapper > .content {
-  padding: 0 0.5rem;
+  padding:0.5rem;
 }
 
 .main-sidebar {
@@ -8831,8 +8831,11 @@ body,
 .user-panel .info {
   overflow: hidden;
   white-space: nowrap;
+  width: 100%;
 }
-
+.user-panel .info .logout{
+  float: left;
+}
 .user-panel .image {
   padding-left: 0.8rem;
   display: inline-block;

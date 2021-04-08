@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/8tag.iml" filepath="$PROJECT_DIR$/.idea/8tag.iml" />
+      <module fileurl="file://C:/wamp/www/wpresent/.idea/wpresent.iml" filepath="C:/wamp/www/wpresent/.idea/wpresent.iml" />
     </modules>
   </component>
 </project>
