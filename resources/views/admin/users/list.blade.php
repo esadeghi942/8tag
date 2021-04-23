@@ -12,18 +12,14 @@
                                 <a href="{{route('admin.user.create')}}" class="btn btn-success btn-sm">ثبت کاربر جدید</a>
                             </div>
                             <div class="card-body table-responsive p-0">
-                                @if($users && count($users) > 0)
-                                    <table class="table table-bordered">
+                                    <table class="table table-bordered data-table">
                                         <thead>
                                         @include('admin.users.columns')
                                         </thead>
-                                        @foreach($users as $user)
-                                            @include('admin.users.items',$user)
-                                        @endforeach
+                                        <tbody>
+                                        </tbody>
                                     </table>
-                                @endif
                             </div>
-                            <!-- /.card-body -->
                         </div>
                         <!-- /.card -->
                     </div>
@@ -31,4 +27,49 @@
             </div>
         </section>
     </div>
+    <script type="text/javascript">
+        $(function () {
+            var table = $('.data-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('admin.user.data') }}",
+                columns: [
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                    {data: 'user_image', name: 'user_image',"render": function (data, type, full, meta) {
+                            return "<img src='"+ data + "' height='40px' />";
+                        },},
+                    {data: 'name', name: 'name'},
+                    {data: 'code', name: 'code'},
+                    {data: 'email', name: 'email'},
+                    {data: 'phone_number', name: 'phone_number'},
+                    {data: 'date_employment', name: 'date_employment'},
+                    {data: 'branch_work', name: 'branch_work'},
+                    {data: 'action', name: 'action', orderable: false, searchable: false},
+                ]
+            });
+        });
+        $(document).ready(function () {
+            $(document).on('click','.delete',function (e) {
+                e.preventDefault();
+                let id=$(this).data('user');
+                $('#msg').html('');
+                $.ajax({
+                    type:'get',
+                    url:'/admin/user/delete/'+id,
+                    success:function(data) {
+                        if(data=='error'){
+                            $('#msg').append('<div class="alert alert-danger">\n' +
+                                '        <p>حذف کاربر ممکن نیست.</p>\n' +
+                                '    </div>');
+                        }
+                        else if(data=='success'){
+                            $('#msg').append('<div class="alert alert-success">\n' +
+                                '        <p>کاربر مورد نظر با موفقیت حذف گردید.</p>\n' +
+                                '    </div>');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

@@ -24,59 +24,66 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title mb-2 text-bold">عنوان کارت</h5>
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                <h3>150</h3>
 
-                                <p class="card-text">
-                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
-                                </p>
-
-                                <a href="#" class="card-link">لینک کارت</a>
-                                <a href="#" class="card-link mr-2">لینک صفحه</a>
+                                <p>سفارشات جدید</p>
                             </div>
-                        </div>
-
-                        <div class="card card-primary card-outline">
-                            <div class="card-body">
-                                <h5 class="card-title mb-2 text-bold">عنوان کارت</h5>
-
-                                <p class="card-text">
-                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
-                                </p>
-                                <a href="#" class="card-link">لینک کارت</a>
-                                <a href="#" class="card-link mr-2">لینک صفحه</a>
+                            <div class="icon">
+                                <i class="ion ion-bag"></i>
                             </div>
-                        </div><!-- /.card -->
-                    </div>
-                    <!-- /.col-md-6 -->
-                    <div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="m-0">ویژه</h5>
-                            </div>
-                            <div class="card-body">
-                                <h6 class="card-title mb-2 text-bold">عنوان کارت ویژه</h6>
-
-                                <p class="card-text">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است </p>
-                                <a href="#" class="btn btn-primary">برو به صفحه ایکس</a>
-                            </div>
-                        </div>
-
-                        <div class="card card-primary card-outline">
-                            <div class="card-header">
-                                <h5 class="m-0">ویژه</h5>
-                            </div>
-                            <div class="card-body">
-                                <h6 class="card-title mb-2 text-bold">عنوان کارت ویژه</h6>
-
-                                <p class="card-text">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
-                                <a href="#" class="btn btn-primary">برو به صفحه ایکس</a>
-                            </div>
+                            <a href="#" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
                         </div>
                     </div>
-                    <!-- /.col-md-6 -->
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-success">
+                            <div class="inner">
+                                <h3>53<sup style="font-size: 20px">%</sup></h3>
+
+                                <p>افزایش امتیاز</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-stats-bars"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-warning">
+                            <div class="inner">
+                                <h3>44</h3>
+
+                                <p>کاربران ثبت شده</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-person-add"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-danger">
+                            <div class="inner">
+                                <h3>65</h3>
+
+                                <p>بازدید جدید</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-pie-graph"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
                 </div>
                 <!-- /.row -->
             </div><!-- /.container-fluid -->

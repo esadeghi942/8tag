@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e00ceea53415a29682e7d7b67f0a6b9c",
+    "content-hash": "a06df066464bf9194556a520a1f809c1",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -823,6 +823,76 @@
             "time": "2021-03-21T16:25:00+00:00"
         },
         {
+            "name": "intervention/image",
+            "version": "2.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Intervention/image.git",
+                "reference": "abbf18d5ab8367f96b3205ca3c89fb2fa598c69e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Intervention/image/zipball/abbf18d5ab8367f96b3205ca3c89fb2fa598c69e",
+                "reference": "abbf18d5ab8367f96b3205ca3c89fb2fa598c69e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-fileinfo": "*",
+                "guzzlehttp/psr7": "~1.1",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9.2",
+                "phpunit/phpunit": "^4.8 || ^5.7"
+            },
+            "suggest": {
+                "ext-gd": "to use GD library based image processing.",
+                "ext-imagick": "to use Imagick based image processing.",
+                "intervention/imagecache": "Caching extension for the Intervention Image library"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Intervention\\Image\\ImageServiceProvider"
+                    ],
+                    "aliases": {
+                        "Image": "Intervention\\Image\\Facades\\Image"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Intervention\\Image\\": "src/Intervention/Image"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Oliver Vogel",
+                    "email": "oliver@olivervogel.com",
+                    "homepage": "http://olivervogel.com/"
+                }
+            ],
+            "description": "Image handling and manipulation library with support for Laravel integration",
+            "homepage": "http://image.intervention.io/",
+            "keywords": [
+                "gd",
+                "image",
+                "imagick",
+                "laravel",
+                "thumbnail",
+                "watermark"
+            ],
+            "time": "2019-11-02T09:15:47+00:00"
+        },
+        {
             "name": "laravel/framework",
             "version": "v8.35.1",
             "source": {
@@ -1245,6 +1315,75 @@
             ],
             "description": "Mime-type detection for Flysystem",
             "time": "2021-01-18T20:58:21+00:00"
+        },
+        {
+            "name": "mews/captcha",
+            "version": "3.2.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mewebstudio/captcha.git",
+                "reference": "42c1b320e4cad1f6ec9a395da36d7eda5b67d122"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mewebstudio/captcha/zipball/42c1b320e4cad1f6ec9a395da36d7eda5b67d122",
+                "reference": "42c1b320e4cad1f6ec9a395da36d7eda5b67d122",
+                "shasum": ""
+            },
+            "require": {
+                "ext-gd": "*",
+                "illuminate/config": "~5|^6|^7|^8",
+                "illuminate/filesystem": "~5|^6|^7|^8",
+                "illuminate/hashing": "~5|^6|^7|^8",
+                "illuminate/session": "~5|^6|^7|^8",
+                "illuminate/support": "~5|^6|^7|^8",
+                "intervention/image": "~2.5",
+                "php": "^7.2|^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^8.5"
+            },
+            "type": "package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Mews\\Captcha\\CaptchaServiceProvider"
+                    ],
+                    "aliases": {
+                        "Captcha": "Mews\\Captcha\\Facades\\Captcha"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Mews\\Captcha\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Muharrem ERİN",
+                    "email": "me@mewebstudio.com",
+                    "homepage": "https://github.com/mewebstudio",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel 5 & 6 Captcha Package",
+            "homepage": "https://github.com/mewebstudio/captcha",
+            "keywords": [
+                "captcha",
+                "laravel5 Security",
+                "laravel6 Captcha",
+                "laravel6 Security"
+            ],
+            "time": "2021-04-22T18:42:48+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -4160,6 +4299,77 @@
                 "validate"
             ],
             "time": "2021-03-09T10:59:23+00:00"
+        },
+        {
+            "name": "yajra/laravel-datatables-oracle",
+            "version": "v9.17.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yajra/laravel-datatables.git",
+                "reference": "6d8b2fbf36a6eb4626f51fdd88b5dd068c712e7b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/6d8b2fbf36a6eb4626f51fdd88b5dd068c712e7b",
+                "reference": "6d8b2fbf36a6eb4626f51fdd88b5dd068c712e7b",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "5.8.*|^6|^7|^8",
+                "illuminate/filesystem": "5.8.*|^6|^7|^8",
+                "illuminate/http": "5.8.*|^6|^7|^8",
+                "illuminate/support": "5.8.*|^6|^7|^8",
+                "illuminate/view": "5.8.*|^6|^7|^8",
+                "php": "^7.1.3|^8"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^3.8"
+            },
+            "suggest": {
+                "yajra/laravel-datatables-buttons": "Plugin for server-side exporting of dataTables.",
+                "yajra/laravel-datatables-editor": "Plugin to use DataTables Editor (requires a license).",
+                "yajra/laravel-datatables-fractal": "Plugin for server-side response using Fractal.",
+                "yajra/laravel-datatables-html": "Plugin for server-side HTML builder of dataTables."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "9.0-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Yajra\\DataTables\\DataTablesServiceProvider"
+                    ],
+                    "aliases": {
+                        "DataTables": "Yajra\\DataTables\\Facades\\DataTables"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Yajra\\DataTables\\": "src/"
+                },
+                "files": [
+                    "src/helper.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Arjay Angeles",
+                    "email": "aqangeles@gmail.com"
+                }
+            ],
+            "description": "jQuery DataTables API for Laravel 4|5|6|7",
+            "keywords": [
+                "datatables",
+                "jquery",
+                "laravel"
+            ],
+            "time": "2021-04-15T04:29:52+00:00"
         }
     ],
     "packages-dev": [

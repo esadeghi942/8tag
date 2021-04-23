@@ -1,23 +1,21 @@
-@extends('layouts.index')
+@extends('layouts.admin')
 
 @section('content')
     <div class="content-wrapper">
         <section class="content">
+            @include('admin.partials.notifications')
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header">
-                                <a href="{{route('user.worktime.create')}}" class="btn btn-success btn-sm">درخواست مرخصی</a>
-                            </div>
                             <div class="card-body table-responsive p-0">
-                                @if($leavements && count($leavements) > 0)
+                                @if($worktimes && count($worktimes) > 0)
                                     <table class="table table-bordered">
                                         <thead>
-                                        @include('users.leavement.columns')
+                                        @include('admin.worktime.columns')
                                         </thead>
-                                        @foreach($leavements as $leavement)
-                                            @include('users.leavement.items',$leavement)
+                                        @foreach($worktimes as $worktime)
+                                            @include('admin.worktime.items',$worktime)
                                         @endforeach
                                     </table>
                                 @endif

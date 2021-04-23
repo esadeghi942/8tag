@@ -16,11 +16,20 @@ class LeavementController extends Controller
 
     public function agree($leavement_id)
     {
+        $item=Leavement::find($leavement_id);
+        $item->leavement_status=2;
+        $item->save();
+        $leavements=Leavement::all();
+        return view('admin.leavement.list',compact('leavements'));
 
     }
 
     public function disagree($leavement_id)
     {
-
+        $item=Leavement::find($leavement_id);
+        $item->leavement_status=1;
+        $item->save();
+        $leavements=Leavement::all();
+        return view('admin.leavement.list',compact('leavements'));
     }
 }

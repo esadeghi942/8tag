@@ -26,13 +26,7 @@
                     <li class="nav-item">
                         <a href="/" class="nav-link">
                             <i class="nav-icon fa fa-home"></i>
-                            <p>خانه</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fa fa-address-card-o"></i>
-                            <p class="text">کارتابل</p>
+                            <p>میز کار</p>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -42,7 +36,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{route('admin.worktime')}}" class="nav-link">
                             <i class="nav-icon fa fa-calendar-check-o"></i>
                             <p>حضور و غیاب</p>
                         </a>

@@ -111,6 +111,9 @@
       <path value="$PROJECT_DIR$/vendor/laravel/breeze" />
       <path value="$PROJECT_DIR$/vendor/beberlei/assert" />
       <path value="$PROJECT_DIR$/vendor/morilog/jalali" />
+      <path value="$PROJECT_DIR$/vendor/yajra/laravel-datatables-oracle" />
+      <path value="$PROJECT_DIR$/vendor/mews/captcha" />
+      <path value="$PROJECT_DIR$/vendor/intervention/image" />
     </include_path>
   </component>
   <component name="PhpUnit">

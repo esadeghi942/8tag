@@ -45,4 +45,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Leavement::class,'user_id');
     }
+
+    public function worktimes()
+    {
+        return $this->hasMany(Worktime::class,'user_id');
+    }
 }

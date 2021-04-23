@@ -1,113 +1,157 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-        </x-slot>
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors"/>
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="card">
+                <form method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="card-body">
+                        @include('users.partials.errors')
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header d-flex p-0">
+                                        <h3 class="card-title p-3"></h3>
+                                        <ul class="nav nav-pills ml-auto p-2">
+                                            <li class="nav-item"><a class="nav-link active" href="#tab_1" data-toggle="tab">عمومی</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">تماس</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#tab_3" data-toggle="tab">پسورد</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#tab_4" data-toggle="tab">استخدام</a></li>
+                                        </ul>
+                                        <button class="btn btn-flat btn-primary">ذخیره اطلاعات</button>
 
-        <form method="POST" action="" enctype='multipart/form-data'>
-        @csrf
+                                    </div><!-- /.card-header -->
+                                    <div class="card-body">
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="tab_1">
+                                                <div class="row">
+                                                    <div class="form-group col-lg-4">
+                                                        <label for="input" class="control-label">نام</label>
+                                                        <div class="input-group">
+                                                            <input id="fname" name="fname"
+                                                                   type="text" value="{{old('fname',isset($userItem) ? $userItem->fname: '')}}"
+                                                                   class="form-control" required/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-lg-4">
+                                                        <label for="input" class="control-label">نام خانوادگی</label>
+                                                        <div class="input-group">
+                                                            <input id="lname" name="lname"
+                                                                   type="text" value="{{old('lname',isset($userItem) ? $userItem->lname: '')}}"
+                                                                   class="form-control" required/>
+                                                        </div>
+                                                    </div>
 
-        <!-- FName -->
-            <div>
-                <x-label for="fname" :value="__('First Name')"/>
+                                                    <div class="form-group col-lg-4">
+                                                        <label for="input" class="control-label">کد ملی</label>
+                                                        <div class="input-group">
+                                                            <input type="text" id="code" name="code"
+                                                                   value="{{old('code',isset($userItem) ? $userItem->code: '')}}"
+                                                                   class="form-control direction_ltr" required/>
+                                                        </div>
+                                                    </div>
 
-                <x-input id="fname" class="block mt-1 w-full" type="text" name="fname" :value="old('fname',isset($userItem) ? $userItem->fname: '')" required
-                         autofocus/>
-            </div>
+                                                    <div class="form-group col-lg-4">
+                                                        <label for="input" class="control-label">عکس</label>
+                                                        <div class="input-group">
+                                                            <input type="file" id="user_image" name="user_image" class="form-control" required>
+                                                        </div>
+                                                    </div>
 
-            <!-- LName -->
-            <div class="mt-4">
-                <x-label for="lname" :value="__('Last Name')"/>
+                                                    <div class="form-group col-lg-4">
+                                                        <img src="{{old('user_image',isset($userItem) ? url('user_image\\').$userItem->user_image: '')}}"/>
+                                                    </div>
 
-                <x-input id="lname" class="block mt-1 w-full" type="text" name="lname" :value="old('lname',isset($userItem) ? $userItem->lname: '')" required
-                         autofocus/>
-            </div>
+                                                </div>
+                                            </div>
+                                            <!-- /.tab-pane -->
+                                            <div class="tab-pane" id="tab_2">
+                                                <div class="row">
+                                                    <div class="form-group col-lg-4">
+                                                        <label for="input" class="control-label">شماره تماس</label>
+                                                        <div class="input-group">
+                                                            <input type="text" id="lname" name="phone_number"
+                                                                   value="{{old('phone_number',isset($userItem) ? $userItem->phone_number: '')}}"
+                                                                   class="form-control direction_ltr" required/>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-            <!-- ّPhone number-->
-            <div class="mt-4">
-                <x-label for="phone_number" :value="__('Phone Number')"/>
+                                                <div class="form-group col-lg-4">
+                                                    <label for="input" class="control-label">ایمیل</label>
+                                                    <div class="input-group">
+                                                        <input type="email" id="email" name="email"
+                                                               value="{{old('email',isset($userItem) ? $userItem->email: '')}}"
+                                                               class="form-control direction_ltr" required/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /.tab-pane -->
+                                            <div class="tab-pane" id="tab_3">
+                                                <div class="row">
+                                                    <div class="form-group col-lg-4">
+                                                        <label for="input" class="control-label">پسورد</label>
+                                                        <div class="input-group">
+                                                            <input type="password" name="password"
+                                                                   autocomplete="new-password" id="password"
+                                                                   class="form-control" required/>
+                                                        </div>
+                                                    </div>
 
-                <x-input id="phone_number" class="block mt-1 w-full" type="text" name="phone_number"
-                         :value="old('phone_number',isset($userItem) ? $userItem->phone_number: '')" required autofocus/>
-            </div>
+                                                    <div class="form-group col-lg-4">
+                                                        <label for="input" class="control-label">تایید پسورد</label>
+                                                        <div class="input-group">
+                                                            <input type="password" name="password_confirmation"
+                                                                   id="password_confirmation"
+                                                                   class="form-control" required/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')"/>
+                                            <div class="tab-pane" id="tab_4">
+                                                <div class="row">
+                                                    <div class="form-group col-lg-4">
+                                                        <label for="input" class="control-label">تاریخ ستخدام</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                  <span class="input-group-text">
+                                                                    <i class="fa fa-calendar"></i>
+                                                                  </span>
+                                                            </div>
+                                                            <input id="date_employment" name="date_employment"
+                                                                   value="{{old('date_employment',isset($userItem) ? $userItem->date_employment: '')}}"
+                                                                   class="normal-example form-control"/>
+                                                        </div>
+                                                    </div>
 
-                <x-input id="password" class="block mt-1 w-full"
-                         type="password"
-                         name="password"
-                         autocomplete="new-password"/>
-            </div>
+                                                    <div class="form-group col-lg-4">
+                                                        <label for="input" class="control-label">شاخه کاری</label>
+                                                        <div class="input-group">
+                                                            <input type="text" id="branch_work" name="branch_work"
+                                                                   value="{{old('branch_work',isset($userItem) ? $userItem->branch_work: '')}}"
+                                                                   class="form-control" required/>
+                                                        </div>
+                                                    </div>
 
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')"/>
+                                                    <div class="form-group col-lg-4">
+                                                        <label for="input" class="control-label">توضیحات</label>
+                                                            <textarea class="form-control" name="user_description" rows="3" placeholder="وارد کردن اطلاعات ...">
+                                                                {{old('user_description',isset($userItem) ? $userItem->user_description: '')}}
+                                                            </textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /.tab-pane -->
+                                        </div>
 
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                         type="password"
-                         name="password_confirmation"/>
-            </div>
-
-            <!-- Email Address -->
-            <div class="mt-4">
-                <x-label for="email" :value="__('Email')"/>
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email',isset($userItem) ? $userItem->email: '')" required/>
-            </div>
-
-            <!-- ّid Code-->
-            <div class="mt-4">
-                <x-label for="code" :value="__('National Code')"/>
-
-                <x-input id="code" class="block mt-1 w-full" type="text" name="code" :value="old('code',isset($userItem) ? $userItem->code: '')" required/>
-            </div>
-
-            <!-- ّDate Employment -->
-            <div class="mt-4">
-                <x-label for="date_employment" :value="__('Date Employment')"/>
-
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="fa fa-calendar"></i>
-                          </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <x-input id="date_employment" name="date_employment" :value="old('date_employment',isset($userItem) ? $userItem->date_employment: '')" class="normal-example form-control"/>
-                </div>
+                </form>
             </div>
-
-            <!-- ّBranch_work -->
-            <div class="mt-4">
-                <x-label for="branch_work" :value="__('Branch Working')"/>
-
-                <x-input id="branch_work" class="block mt-1 w-full" type="text" name="branch_work"
-                         :value="old('branch_work',isset($userItem) ? $userItem->branch_work: '')" required autofocus/>
-            </div>
-
-            <!-- ّ user_description -->
-            <div class="mt-4">
-                <x-label for="user_description" :value="__('Description')"/>
-
-                <x-input id="user_description" class="block mt-1 w-full" type="text" name="user_description"
-                         :value="old('user_description',isset($userItem) ? $userItem->user_description: '')" autofocus/>
-            </div>
-
-            <!-- Image -->
-            <div class="mt-4">
-                <x-label for="user_image" :value="__('Image')"/>
-                <input type="file" name="user_image" class="form-control">
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-
-                <x-button class="ml-4">
-                    {{ __('ذخیره اطلاعات') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+        </div>
+    </section>
+</div>

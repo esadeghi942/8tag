@@ -47,4 +47,19 @@ class UserRequest extends FormRequest
 
         return $rules;
     }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'A title is required',
+            'body.required' => 'A message is required',
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'email' => 'email address',
+        ];
+    }
 }

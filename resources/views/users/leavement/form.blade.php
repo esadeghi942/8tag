@@ -8,7 +8,7 @@
                 <form method="post" class="form-horizontal">
                     @csrf
                     <div class="card-body">
-                        @include('admin.partials.errors')
+                        @include('users.partials.errors')
                         <div class="form-group">
                             <label for="input" class="control-label">نوع مرخصی</label>
                             <div class="form-group">

@@ -14,4 +14,9 @@ class HomeController extends Controller
         else
             return view('users.index');
     }
+
+    public function reloadCaptcha(){
+        return response()->json(['captcha'=> captcha_img()]);
+    }
+
 }

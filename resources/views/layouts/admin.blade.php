@@ -21,6 +21,8 @@
     <!-- template rtl version -->
     <link rel="stylesheet" href="/css/custom-style.css">
 
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+
     <!-- jQuery -->
     <script src="/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
@@ -30,6 +32,11 @@
 
     <script src="/js/persian-date.min.js"></script>
     <script src="/js/persian-datepicker.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">

@@ -273,6 +273,10 @@ ul {
 }
 
 img.user_image{
-    height: 20px;
-    width: 20px;
+    height: 30px;
+    width: 40px;
+}
+
+.direction_ltr{
+    direction: ltr !important;
 }

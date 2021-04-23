@@ -1,4 +1,4 @@
-@extends('layouts.index')
+@extends('layouts.admin')
 @section('content')
-    @include('users.leavement.form')
+    @include('admin.users.form')
 @endsection

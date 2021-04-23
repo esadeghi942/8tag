@@ -14,13 +14,14 @@ class CreateWorktimesTable extends Migration
     public function up()
     {
         Schema::create('worktimes', function (Blueprint $table) {
-            $table->increments('worktime_id');
-            $table->time('worktime_start');
-            $table->time('worktime_finish');
-            $table->integer('worktime_total');
-            $table->integer('worktime_reduce');
-            $table->integer('worktime_teleworking');
-            $table->text('worktime_description');
+            $table->increments('id');
+            $table->string('date');
+            $table->time('time_start');
+            $table->time('time_finish');
+            $table->integer('total');
+            $table->integer('reduce');
+            $table->integer('teleworking');
+            $table->text('description')->nullable();
             $table->timestamps();
             $table->engine = 'InnoDB';
         });

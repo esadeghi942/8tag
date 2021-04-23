@@ -31,6 +31,7 @@ class LoginRequest extends FormRequest
         return [
             'phone_number' => 'required|string|regex:/(09)[0-9]{9}/',
             'password' => 'required|string',
+            'captcha' => 'required|captcha'
         ];
     }
 

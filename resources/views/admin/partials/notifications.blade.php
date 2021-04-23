@@ -1,3 +1,4 @@
+<div id="msg">
 @if(session('success'))
     <div class="alert alert-success">
         <p>{{ session('success') }}</p>
@@ -15,3 +16,4 @@
         <p>{{ session('warninig') }}</p>
     </div>
     @endif
+</div>

@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>پنل مدیریت | شروع سریع</title>
+        <title>8-Tag</title>
 
         <!-- Font Awesome Icons -->
         <link rel="stylesheet" href="/plugins/font-awesome/css/font-awesome.min.css">
@@ -19,6 +19,8 @@
         <link rel="stylesheet" href="/css/persian-datepicker.min.css">
 
         <!-- template rtl version -->
+        <link href="/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
         <link rel="stylesheet" href="/css/custom-style.css">
 
         <script src="/plugins/jquery/jquery.min.js"></script>
@@ -27,6 +29,9 @@
         <!-- AdminLTE App -->
         <script src="/js/adminlte.min.js"></script>
 
+        <script type="text/javascript" src="/js/moment.min.js"></script>
+
+        <script src="/js/bootstrap-datetimepicker.min.js"></script>
 
         <script src="/js/persian-date.min.js"></script>
         <script src="/js/persian-datepicker.min.js"></script>

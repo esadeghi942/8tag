@@ -5,9 +5,12 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use Session;
+use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
@@ -18,13 +21,34 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::all();
-        return view('admin.users.list', compact('users'));
+        return view('admin.users.list');
+    }
+
+    public function data(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = User::latest()->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->editColumn('user_image', function(User $user){
+                    return url('user_image\\').$user->user_image;
+                })
+                ->addColumn('name', function(User $user){
+                    return $user->fname. '  '.$user->lname ;
+                })
+                ->addColumn('action', function(User $user){
+                    $actionBtn = '<a href="/admin/user/edit/'.$user->user_id.'" class="edit btn btn-success btn-sm">ویرایش</a>
+                                  <a data-user="'.$user->user_id.'" class="delete btn btn-danger btn-sm">حذف</a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action','name'])
+                ->make(true);
+        }
     }
 
     public function create()
     {
-        return view('admin.users.add');
+        return view('admin.users.create');
     }
 
     public function store(UserRequest $request)
@@ -47,11 +71,6 @@ class UserController extends Controller
             'user_description' => $request->user_description
         ]);
         return redirect()->route('admin.user')->with('success', 'کاربر جدید با موفقیت ثبت گردید.');
-    }
-
-    public function show($user_id)
-    {
-        //
     }
 
     public function edit($user_id)
@@ -107,9 +126,9 @@ class UserController extends Controller
                 if ($image !== '' && file_exists(public_path('user_image\\') . $image))
                     unlink(public_path('user_image\\') . $image);
                 $userItem->delete();
-                return redirect()->route('admin.user')->with('success', 'کاربر مورد نظر با موفقیت حذف گردید.');
+                return response('success');
             }
-            return redirect()->route('admin.user')->with('danger', 'حذف کاربر ممکن نیست.');
+            return response('error');
         }
     }
 

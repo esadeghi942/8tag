@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Leavement;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Morilog\Jalali\Jalalian;
 
@@ -21,7 +20,7 @@ class LeavementController extends Controller
 
     public function create()
     {
-        return view('users.leavement.add');
+        return view('users.leavement.create');
     }
 
 
@@ -29,11 +28,11 @@ class LeavementController extends Controller
     {
         $date = Jalalian::now()->format('%Y/%m/%d  %H:i:00');
         $request->validate([
-            'leavement_type'=>'string|required',
-            'leavement_start'=>'string|required',
-            'leavement_finish'=>'string|required',
-            'leavement_date_count'=>'numeric|required',
-            'leavement_description'=>'string|required'
+            'type'=>'string|required',
+            'start'=>'string|required',
+            'finish'=>'string|required',
+            'date_count'=>'numeric|required',
+            'description'=>'string|required'
         ]);
         $user=Auth::id();
        Leavement::create([
@@ -91,7 +90,7 @@ class LeavementController extends Controller
         }
     }
 
-    public function delete($leavement_id)
+    public function destroy($leavement_id)
     {
         if ($leavement_id && ctype_digit($leavement_id)) {
             $leavementItem=Leavement::find($leavement_id);
