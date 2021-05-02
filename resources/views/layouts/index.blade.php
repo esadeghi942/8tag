@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-        <title>8-Tag</title>
+        <title>8_Tag</title>
 
         <!-- Font Awesome Icons -->
         <link rel="stylesheet" href="/plugins/font-awesome/css/font-awesome.min.css">
@@ -22,31 +22,38 @@
         <link href="/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
         <link rel="stylesheet" href="/css/custom-style.css">
+        <link href="/css/jquery.dataTables.min.css" rel="stylesheet">
 
         <script src="/plugins/jquery/jquery.min.js"></script>
         <!-- Bootstrap 4 -->
         <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         <!-- AdminLTE App -->
         <script src="/js/adminlte.min.js"></script>
-
         <script type="text/javascript" src="/js/moment.min.js"></script>
-
         <script src="/js/bootstrap-datetimepicker.min.js"></script>
-
         <script src="/js/persian-date.min.js"></script>
         <script src="/js/persian-datepicker.min.js"></script>
 
+        <script src="/js/jquery.validate.js"></script>
+        <script src="/js/jquery.dataTables.min.js"></script>
+        <style>
+                .dataTables_wrapper{
+                        width: 100%;
+                        overflow: auto;
+                        padding: 20px;
+                }
+        </style>
     </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
 
-    @include('users/partials/header')
+    @include('user/partials/header')
 
-    @include('users/partials/sidebar')
+    @include('user/partials/sidebar')
 
     @yield('content')
 
-    @include('users/partials/footer')
+    @include('user/partials/footer')
 </div>
 
 </body>

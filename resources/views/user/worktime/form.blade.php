@@ -3,14 +3,14 @@
         <div class="container-fluid">
             <div class="card card-success">
                 <div class="card-header">
-                    <h3 class="card-title">ثبت حضور و غیاب</h3>
+                    <h3 class="card-title">ثبت ساعت کاری</h3>
                 </div>
                 <form method="post">
                     @csrf
                     <div class="card-body">
-                        @include('users.partials.errors')
+                        @include('user.partials.errors')
                         <div class="row">
-                            <div class="form-group">
+                            <div class="form-group col-lg-4">
                                 <label for="input" class="control-label">تاریخ</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -25,14 +25,14 @@
                             </div>
                             <div class="form-group col-lg-4">
                                 <label for="input" class="control-label">ساعت ورود</label>
-                                <input id="start" type="text" name="start"
-                                       value="{{old('start',isset($worktimeItem) ? $worktimeItem->start: '')}}"
+                                <input id="start" type="text" name="time_start"
+                                       value="{{old('time_start',isset($worktimeItem) ? $worktimeItem->time_start: '')}}"
                                        class="form-control timepicker" required/>
                             </div>
                             <div class="form-group col-lg-4">
                                 <label for="input" class="control-label">ساعت خروج</label>
-                                <input id="finish" type="text" name="finish"
-                                       value="{{old('finish',isset($worktimeItem) ? $worktimeItem->finish: '')}}"
+                                <input id="finish" type="text" name="time_finish"
+                                       value="{{old('time_finish',isset($worktimeItem) ? $worktimeItem->time_finish: '')}}"
                                        class="form-control timepicker" required/>
                             </div>
                             <div class="form-group col-lg-4">

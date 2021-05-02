@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,7 @@ class UserController extends Controller
 
     public function index()
     {
-        return view('admin.users.list');
+        return view('admin.users.index');
     }
 
     public function data(Request $request)
@@ -36,19 +37,24 @@ class UserController extends Controller
                 ->addColumn('name', function(User $user){
                     return $user->fname. '  '.$user->lname ;
                 })
+                ->addColumn('branch_work', function(User $user){
+                    return implode(',',$user->roles()->get()->pluck('title')->toArray()) ;
+                })
                 ->addColumn('action', function(User $user){
                     $actionBtn = '<a href="/admin/user/edit/'.$user->user_id.'" class="edit btn btn-success btn-sm">ویرایش</a>
+                                  <a href="/admin/user/'.$user->user_id.'/worktime" class="btn btn-success btn-sm">ساعت کاری</a>
                                   <a data-user="'.$user->user_id.'" class="delete btn btn-danger btn-sm">حذف</a>';
                     return $actionBtn;
                 })
-                ->rawColumns(['action','name'])
+                ->rawColumns(['action','name','branch_work'])
                 ->make(true);
         }
     }
 
     public function create()
     {
-        return view('admin.users.create');
+        $roles=Role::all();
+        return view('admin.users.create',compact('roles'));
     }
 
     public function store(UserRequest $request)
@@ -58,7 +64,7 @@ class UserController extends Controller
             $new_file_name = Str::random(45) . '.' . $request->file('user_image')->getClientOriginalExtension();
             $result = $request->file('user_image')->move(public_path('user_image'), $new_file_name);
         }
-        User::create([
+        $new_user=User::create([
             'fname' => $request->fname,
             'lname' => $request->lname,
             'email' => $request->email,
@@ -67,20 +73,22 @@ class UserController extends Controller
             'phone_number' => $request->phone_number,
             'user_image' => $new_file_name,
             'date_employment' => $request->date_employment,
-            'branch_work' => $request->branch_work,
             'user_description' => $request->user_description
         ]);
-        return redirect()->route('admin.user')->with('success', 'کاربر جدید با موفقیت ثبت گردید.');
+        if($request->has('branch_work')){
+            $new_user->roles()->sync($request->input('branch_work'));
+        }
+        return redirect()->route('admin.user.index')->with('success', 'کاربر جدید با موفقیت ثبت گردید.');
     }
 
     public function edit($user_id)
     {
         if ($user_id && ctype_digit($user_id)) {
             $userItem = User::find($user_id);
-            if ($userItem && $userItem instanceof User) {
-                return view('admin.users.edit', compact('userItem'));
+            $roles=Role::all();
+            $userrole=$userItem->roles()->get()->pluck('id')->toArray();
+            return view('admin.users.edit', compact('userItem','roles','userrole'));
             }
-        }
     }
 
     public function update(UserRequest $request, $user_id)
@@ -103,7 +111,6 @@ class UserController extends Controller
             'phone_number' => $request->phone_number,
             'user_image' => $new_file_name,
             'date_employment' => $request->date_employment,
-            'branch_work' => $request->branch_work,
             'user_description' => $request->user_description];
         if (request()->input('password') === null) {
             unset($inputs['password']);
@@ -111,13 +118,15 @@ class UserController extends Controller
         if($request->file('user_image')=== null) {
             unset($inputs['user_image']);
         }
+        if($request->has('branch_work'))
+            $user->roles()->sync($request->input('branch_work'));
         $update = $user->update($inputs);
         if ($update) {
-            return redirect()->route('admin.user')->with('success', 'کاربر با موفقیت به روز رسانی شد.');
+            return redirect()->route('admin.user.index')->with('success', 'کاربر با موفقیت به روز رسانی شد.');
         }
     }
 
-    public function delete($user_id)
+    public function destroy($user_id)
     {
         if ($user_id && ctype_digit($user_id)) {
             $userItem = User::find($user_id);

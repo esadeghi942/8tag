@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class LeavementRequest extends FormRequest
@@ -13,7 +14,7 @@ class LeavementRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -23,23 +24,30 @@ class LeavementRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-
-        ];
+        return  ['type'=>'string|required',
+            'start'=>'string|required',
+            'finish'=>'string|required',
+            'date_count'=>'numeric|required',
+            'description'=>'string|required'];
     }
 
     public function messages()
     {
         return [
-            'title.required' => 'A title is required',
-            'body.required' => 'A message is required',
+            'required' => 'وارد کردن :attribute الزامی می باشد',
+            'numeric' =>':attribute باید از نوع عددی باشد ',
+            'string' =>':attribute باید از نوع رشته باشد '
         ];
     }
 
     public function attributes()
     {
         return [
-            'email' => 'email address',
+            'type' => 'نوع مرخصی',
+            'start' => 'تاریخ شروع',
+            'finish' => 'تاریخ پایان',
+            'date_count' => 'تعداد روز کاری',
+            'description' => 'توضیحات',
         ];
     }
 }

@@ -9,22 +9,20 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Morilog\Jalali\Jalalian;
+use Yajra\DataTables\Facades\DataTables;
 
 
 class WorktimeController extends Controller
 {
     public function index()
     {
-        $user=User::find(Auth::id());
-        $worktimes=$user->worktimes()->get();
-        return view('users.worktime.list',compact('worktimes'));
+        return view('user.worktime.index');
     }
 
     public function create()
     {
-        return view('users.worktime.create');
+        return view('user.worktime.create');
     }
-
 
     public function store(WorktimeRequest $request)
     {
@@ -54,7 +52,7 @@ class WorktimeController extends Controller
         if ($worktime_id && ctype_digit($worktime_id)) {
             $worktimeItem = worktime::find($worktime_id);
             if ($worktimeItem && $worktimeItem instanceof worktime) {
-                return view('users.worktime.edit', compact('worktimeItem'));
+                return view('user.worktime.edit', compact('worktimeItem'));
             }
         }
     }
@@ -74,20 +72,36 @@ class WorktimeController extends Controller
         ];
         $update = $worktime->update($inputs);
         if ($update) {
-            return redirect()->route('user.worktime')->with('success', 'ساعت کاری با موفقیت به روز رسانی شد.');
+            return redirect()->route('user.worktime.index')->with('success', 'ساعت کاری با موفقیت به روز رسانی شد.');
         }
     }
 
-    public function destroy($worktime_id)
+    public function destroy(Request $request,$worktime_id)
     {
-        if ($worktime_id && ctype_digit($worktime_id)) {
+        if ($request->ajax() && $worktime_id && ctype_digit($worktime_id)) {
             $worktimeItem=Worktime::find($worktime_id);
             if ($worktimeItem && $worktimeItem instanceof Worktime && $worktimeItem->user_id == Auth::id()) {
                 $worktimeItem->delete();
-                return redirect()->route('user.worktime')->with('success', 'ساعت کاری مورد نظر با موفقیت حذف گردید.');
+                return response('success');
             }
-            return redirect()->route('user.worktime')->with('danger', 'حذف این مورد ممکن نیست.');
+            return response('error');
         }
     }
 
+    public function data(Request $request)
+    {
+        if ($request->ajax()) {
+            $user_id=Auth::id();
+            $data = Worktime::where('user_id',$user_id)->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function(Worktime $wt){
+                    $actionBtn = '<a href="'.route('user.worktime.edit',$wt->id).'" class="edit btn btn-success btn-sm">ویرایش</a>
+                                  <a data-id="'.$wt->id.'" class="delete btn btn-danger btn-sm">حذف</a>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+    }
 }

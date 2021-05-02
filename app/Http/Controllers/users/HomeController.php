@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     public function redirectUser(){
-        if (Auth::user()->role == 2)
+        if (Auth::user()->type == 2)
             return redirect()->route('admin');
         else
-            return view('users.index');
+            return view('user.index');
     }
 
     public function reloadCaptcha(){

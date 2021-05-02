@@ -3,49 +3,42 @@
 namespace App\Http\Controllers\users;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LeavementRequest;
 use App\Models\Leavement;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Morilog\Jalali\Jalalian;
+use Yajra\DataTables\Facades\DataTables;
 
 class LeavementController extends Controller
 {
     public function index()
     {
-        $user=User::find(Auth::id());
-        $leavements=$user->leavements()->get();
-        return view('users.leavement.list',compact('leavements'));
+        return view('user.leavement.index');
     }
 
     public function create()
     {
-        return view('users.leavement.create');
+        return view('user.leavement.create');
     }
 
-
-    public function store(Request $request)
+    public function store(LeavementRequest $request)
     {
         $date = Jalalian::now()->format('%Y/%m/%d  %H:i:00');
-        $request->validate([
-            'type'=>'string|required',
-            'start'=>'string|required',
-            'finish'=>'string|required',
-            'date_count'=>'numeric|required',
-            'description'=>'string|required'
-        ]);
+        $request->validated();
         $user=Auth::id();
        Leavement::create([
-            'leavement_type' => intval($request->leavement_type),
-            'leavement_date_request' => $date,
-            'leavement_status' => 0,
-            'leavement_start' => $request->leavement_start,
-            'leavement_finish' => $request->leavement_finish,
-            'leavement_date_count' => intval($request->leavement_date_count),
-            'leavement_description' => $request->leavement_description,
+            'type' => intval($request->type),
+            'date_request' => $date,
+            'status' => 0,
+            'start' => $request->start,
+            'finish' => $request->finish,
+            'date_count' => intval($request->date_count),
+            'description' => $request->description,
             'user_id' => $user
         ]);
-        return redirect()->route('user.leavement')->with('success', 'مرخصی جدید با موفقیت ثبت گردید.');
+        return redirect()->route('user.leavement.index')->with('success', 'مرخصی جدید با موفقیت ثبت گردید.');
 
     }
 
@@ -54,51 +47,69 @@ class LeavementController extends Controller
         //
     }
 
-    public function edit($leavement_id)
+    public function edit($id)
     {
-        if ($leavement_id && ctype_digit($leavement_id)) {
-            $leavementItem = Leavement::find($leavement_id);
+        if ($id && ctype_digit($id)) {
+            $leavementItem = Leavement::find($id);
             if ($leavementItem && $leavementItem instanceof Leavement) {
-                return view('users.leavement.edit', compact('leavementItem'));
+                return view('user.leavement.edit', compact('leavementItem'));
             }
         }
     }
 
-    public function update(Request $request, $leavement_id)
+    public function update(LeavementRequest $request, $id)
     {
         $date = Jalalian::now()->format('%Y/%m/%d  %H:i:00');
-        $request->validate([
-            'leavement_type'=>'string|required',
-            'leavement_start'=>'string|required',
-            'leavement_finish'=>'string|required',
-            'leavement_date_count'=>'numeric|required',
-            'leavement_description'=>'string|required'
-        ]);
-        $leavement=Leavement::find($leavement_id);
+        $request->validated();
+        $leavement=Leavement::find($id);
         $inputs = [
-            'leavement_type' => intval($request->leavement_type),
-            'leavement_date_request' => $date,
-            'leavement_status' => 0,
-            'leavement_start' => $request->leavement_start,
-            'leavement_finish' => $request->leavement_finish,
-            'leavement_date_count' => intval($request->leavement_date_count),
-            'leavement_description' => $request->leavement_description,
+            'type' => intval($request->type),
+            'date_request' => $date,
+            'status' => 0,
+            'start' => $request->start,
+            'finish' => $request->finish,
+            'date_count' => intval($request->date_count),
+            'description' => $request->description,
         ];
         $update = $leavement->update($inputs);
         if ($update) {
-            return redirect()->route('user.leavement')->with('success', 'درخواست مرخصی با موفقیت به روز رسانی شد.');
+            return redirect()->route('user.leavement.index')->with('success', 'درخواست مرخصی با موفقیت به روز رسانی شد.');
         }
     }
 
-    public function destroy($leavement_id)
+    public function destroy(Request $request,$leavement_id)
     {
-        if ($leavement_id && ctype_digit($leavement_id)) {
+        if ($request->ajax() && $leavement_id && ctype_digit($leavement_id)) {
             $leavementItem=Leavement::find($leavement_id);
             if ($leavementItem && $leavementItem instanceof Leavement && $leavementItem->user_id == Auth::id()) {
                 $leavementItem->delete();
-                return redirect()->route('user.leavement')->with('success', 'درخواست مرخصی مورد نظر با موفقیت حذف گردید.');
+                return response('success');
             }
-            return redirect()->route('user.leavement')->with('danger', 'حذف درخواست مرخصی ممکن نیست.');
+            return response('error');
         }
     }
+
+    public function data(Request $request)
+    {
+        if ($request->ajax()) {
+            $user_id=Auth::id();
+            $data = Leavement::where('user_id',$user_id)->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function(Leavement $leavement){
+                    $actionBtn = '<a href="'.route('user.leavement.edit',$leavement->id).'" class="edit btn btn-success btn-sm">ویرایش</a>
+                                  <a data-id="'.$leavement->id.'" class="delete btn btn-danger btn-sm">حذف</a>';
+                    return $actionBtn;
+                })->
+                editColumn('type',function ($row){
+                    if($row->type=='1')
+                        return 'روزانه';
+                    else if($row->type=='2')
+                        return 'ساعتی';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+    }
+
 }

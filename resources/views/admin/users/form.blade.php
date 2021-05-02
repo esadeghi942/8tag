@@ -1,4 +1,8 @@
-
+<style>
+    .user_image img{
+        width: 100px;
+    }
+</style>
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
@@ -6,7 +10,7 @@
                 <form method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
-                        @include('users.partials.errors')
+                        @include('admin.partials.errors')
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
@@ -54,11 +58,11 @@
                                                     <div class="form-group col-lg-4">
                                                         <label for="input" class="control-label">عکس</label>
                                                         <div class="input-group">
-                                                            <input type="file" id="user_image" name="user_image" class="form-control" required>
+                                                            <input type="file" id="user_image" name="user_image" class="form-control">
                                                         </div>
                                                     </div>
 
-                                                    <div class="form-group col-lg-4">
+                                                    <div class="form-group user_image col-lg-4">
                                                         <img src="{{old('user_image',isset($userItem) ? url('user_image\\').$userItem->user_image: '')}}"/>
                                                     </div>
 
@@ -94,7 +98,7 @@
                                                         <div class="input-group">
                                                             <input type="password" name="password"
                                                                    autocomplete="new-password" id="password"
-                                                                   class="form-control" required/>
+                                                                   class="form-control"/>
                                                         </div>
                                                     </div>
 
@@ -103,7 +107,7 @@
                                                         <div class="input-group">
                                                             <input type="password" name="password_confirmation"
                                                                    id="password_confirmation"
-                                                                   class="form-control" required/>
+                                                                   class="form-control"/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -127,11 +131,12 @@
 
                                                     <div class="form-group col-lg-4">
                                                         <label for="input" class="control-label">شاخه کاری</label>
-                                                        <div class="input-group">
-                                                            <input type="text" id="branch_work" name="branch_work"
-                                                                   value="{{old('branch_work',isset($userItem) ? $userItem->branch_work: '')}}"
-                                                                   class="form-control" required/>
-                                                        </div>
+                                                        @foreach($roles as $role)
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" name="branch_work[]" type="checkbox" value="{{$role->id}}" {{old('branch_work',isset($userItem) && in_array($role->id,$userrole)) ? 'checked': '' }}>
+                                                                <label class="form-check-label">{{$role->title}}</label>
+                                                            </div>
+                                                        @endforeach
                                                     </div>
 
                                                     <div class="form-group col-lg-4">

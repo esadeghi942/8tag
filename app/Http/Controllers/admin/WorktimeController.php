@@ -7,13 +7,23 @@ use App\Models\Worktime;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 
 class WorktimeController extends Controller
 {
-    public function index()
+    public function index($user_id)
     {
-        $worktimes=Worktime::all();
-        return view('admin.worktime.list',compact('worktimes'));
+        return view('admin.worktime.index',compact('user_id'));
     }
 
+    public function data(Request $request,$user_id)
+    {
+        if ($request->ajax()) {
+            $data = Worktime::where('user_id',$user_id)->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->rawColumns([])
+                ->make(true);
+        }
+    }
 }

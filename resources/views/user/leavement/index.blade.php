@@ -1,17 +1,17 @@
-@extends('layouts.admin')
+@extends('layouts.index')
 
 @section('content')
     <div class="content-wrapper">
         <section class="content">
-            @include('admin.partials.notifications')
+            @include('user.partials.notifications')
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0">
-                                <table class="table table table-bordered data-table">
+                                <table class="table table-bordered data-table">
                                     <thead>
-                                    @include('admin.leavement.columns')
+                                    @include('user.leavement.columns')
                                     </thead>
                                     <tbody></tbody>
                                 </table>
@@ -29,11 +29,9 @@
             var table = $('.data-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('admin.leavement.data') }}",
+                ajax: "{{ route('user.leavement.data') }}",
                 columns: [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                    {data: 'name', name: 'name'},
-                    {data: 'phone_number', name: 'phone_number'},
                     {data: 'type', name: 'type'},
                     {data: 'start', name: 'start'},
                     {data: 'finish', name: 'finish'},
@@ -47,36 +45,33 @@
                             else
                                 return ' <span class="badge bg-warning"> در حال بررسی</span> ';
                         }
-                    , class : "status",},
+                        , class : "status"},
                     {data: 'action', name: 'action', orderable: false, searchable: false},
                 ]
             });
         });
-        $(document).ready(function () {
-            $(document).on('click', '.disagree', function (e){
-                e.preventDefault();
-                let id = $(this).data('id');
-                let elm=$(this).closest('tr').find('td.status');
-                $.ajax({
-                    type: 'get',
-                    url: '/admin/leavement/disagree/' + id,
-                    success: function (data) {
-                        elm.html('');
-                        elm.append('<span class="badge bg-danger">رد شده </span>');
-                    }
-                });
-            });
-            $(document).on('click', '.agree', function (e) {
-                e.preventDefault();
-                let id = $(this).data('id');
-                let elm=$(this).closest('tr').find('.status');
-                $.ajax({
-                    type: 'get',
-                    url: '/admin/leavement/agree/' + id,
-                    success: function (data) {
-                        elm.html('');
-                        elm.append('<span class="badge bg-success">تایید شده </span>');
 
+        $(document).ready(function () {
+            $(document).on('click','.delete',function (e) {
+                e.preventDefault();
+                let id=$(this).data('id');
+                $('#msg').html('');
+                let elm=$(this);
+                $.ajax({
+                    type:'get',
+                    url:'/leavement/delete/'+id,
+                    success:function(data) {
+                        if(data=='error'){
+                            $('#msg').append('<div class="alert alert-danger">\n' +
+                                '        <p>حذف مرخصی ممکن نیست.</p>\n' +
+                                '    </div>');
+                        }
+                        else if(data=='success'){
+                            $('#msg').append('<div class="alert alert-success">\n' +
+                                '        <p>درخواست مرخصی مورد نظر با موفقیت حذف گردید.</p>\n' +
+                                '    </div>');
+                            elm.closest('tr').remove();
+                        }
                     }
                 });
             });

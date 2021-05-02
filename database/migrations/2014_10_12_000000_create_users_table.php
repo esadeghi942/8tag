@@ -25,9 +25,9 @@ class CreateUsersTable extends Migration
             $table->string('phone_number')->unique();
             $table->string('user_image');
             $table->string('date_employment');//must be jalaly date
-            $table->string('branch_work');
+            $table->integer('role_id');
             $table->longText('user_description')->nullable();
-            $table->tinyInteger('role')->default(1);//admin=2 Or Employee=1
+            $table->tinyInteger('type')->default(1);//admin=2 Or Employee=1
             $table->rememberToken();
             $table->timestamps();
         });

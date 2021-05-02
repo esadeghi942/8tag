@@ -35,6 +35,13 @@ class LoginRequest extends FormRequest
         ];
     }
 
+    public function messages()
+    {
+        return [
+            'captcha.required' => 'وارد کردن کد امنیتی الزامی می باشد',
+            'captcha.captcha' => 'کد امنیتی وارد شده نامعتبر است '];
+    }
+
     /**
      * Attempt to authenticate the request's credentials.
      *

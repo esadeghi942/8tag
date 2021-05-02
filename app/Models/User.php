@@ -50,4 +50,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Worktime::class,'user_id');
     }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class,'role_user','user_id','role_id');
+
+    }
 }

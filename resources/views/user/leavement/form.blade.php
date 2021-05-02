@@ -8,12 +8,13 @@
                 <form method="post" class="form-horizontal">
                     @csrf
                     <div class="card-body">
-                        @include('users.partials.errors')
+                        @include('user.partials.errors')
                         <div class="form-group">
                             <label for="input" class="control-label">نوع مرخصی</label>
                             <div class="form-group">
-                                <select name="leavement_type" class="form-control col-lg-4">
-                                    <option @if(isset($leavementItem) && $leavementItem->leavement_type==1) selected="selected" @endif value="1">روزانه</option>
+                                <select name="type" class="form-control col-lg-4">
+                                    <option @if(isset($leavementItem) && $leavementItem->type==1) selected="selected" @endif value="1">روزانه</option>
+                                    <option @if(isset($leavementItem) && $leavementItem->type==2) selected="selected" @endif value="2">ساعتی</option>
                                 </select>
                             </div>
                         </div>
@@ -27,8 +28,8 @@
                             <i class="fa fa-calendar"></i>
                           </span>
                                     </div>
-                                    <input id="leavement_start" name="leavement_start"
-                                           value="{{old('leavement_start',isset($leavementItem) ? $leavementItem->leavement_start: '')}}"
+                                    <input id="start" name="start"
+                                           value="{{old('start',isset($leavementItem) ? $leavementItem->start: '')}}"
                                            class="normal-example form-control initial-value-type-example"/>
                                 </div>
                             </div>
@@ -41,8 +42,8 @@
                             <i class="fa fa-calendar"></i>
                           </span>
                                     </div>
-                                    <input id="leavement_finish" name="leavement_finish"
-                                           value="{{old('leavement_finish',isset($leavementItem) ? $leavementItem->leavement_finish: '')}}"
+                                    <input id="finish" name="finish"
+                                           value="{{old('finish',isset($leavementItem) ? $leavementItem->finish: '')}}"
                                            class="normal-example form-control"/>
                                 </div>
                             </div>
@@ -50,16 +51,16 @@
                                 <label for="input" class="control-label">چند روز کاری</label>
 
                                 <div class="input-group ">
-                                    <input id="leavement_finish" name="leavement_date_count"
-                                           value="{{old('leavement_date_count',isset($leavementItem) ? $leavementItem->leavement_date_count: '')}}"
+                                    <input id="finish" name="date_count"
+                                           value="{{old('date_count',isset($leavementItem) ? $leavementItem->date_count: '')}}"
                                            class="form-control"/>
                                 </div>
                             </div>
 
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" name="leavement_description" rows="3"
-                                      placeholder="دلیل مرخصی خود را بنویسید">{{old('leavement_description',isset($leavementItem) ? $leavementItem->leavement_description: '')}}</textarea>
+                            <textarea class="form-control" name="description" required rows="3"
+                                      placeholder="دلیل مرخصی خود را بنویسید">{{old('description',isset($leavementItem) ? $leavementItem->description: '')}}</textarea>
                         </div>
                     </div>
                     <!-- /.card-body -->

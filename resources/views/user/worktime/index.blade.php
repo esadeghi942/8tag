@@ -1,25 +1,22 @@
-@extends('layouts.admin')
+@extends('layouts.index')
 
 @section('content')
     <div class="content-wrapper">
         <section class="content">
-            @include('admin.partials.notifications')
+            @include('user.partials.notifications')
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header">
-                                <a href="{{route('admin.user.create')}}" class="btn btn-success btn-sm">ثبت کاربر جدید</a>
-                            </div>
                             <div class="card-body table-responsive p-0">
                                     <table class="table table-bordered data-table">
                                         <thead>
-                                        @include('admin.users.columns')
+                                        @include('user.worktime.columns')
                                         </thead>
-                                        <tbody>
-                                        </tbody>
+                                       <tbody></tbody>
                                     </table>
                             </div>
+                            <!-- /.card-body -->
                         </div>
                         <!-- /.card -->
                     </div>
@@ -32,18 +29,16 @@
             var table = $('.data-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('admin.user.data') }}",
+                ajax: "{{ route('user.worktime.data') }}",
                 columns: [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                    {data: 'user_image', name: 'user_image',"render": function (data, type, full, meta) {
-                            return "<img src='"+ data + "' height='40px' />";
-                        },},
-                    {data: 'name', name: 'name'},
-                    {data: 'code', name: 'code'},
-                    {data: 'email', name: 'email'},
-                    {data: 'phone_number', name: 'phone_number'},
-                    {data: 'date_employment', name: 'date_employment'},
-                    {data: 'branch_work', name: 'branch_work'},
+                    {data: 'date', name: 'date'},
+                    {data: 'time_start', name: 'time_start'},
+                    {data: 'time_finish', name: 'time_finish'},
+                    {data: 'total', name: 'total'},
+                    {data: 'reduce', name: 'reduce'},
+                    {data: 'teleworking', name: 'teleworking'},
+                    {data: 'description', name: 'description'},
                     {data: 'action', name: 'action', orderable: false, searchable: false},
                 ]
             });
@@ -51,21 +46,23 @@
         $(document).ready(function () {
             $(document).on('click','.delete',function (e) {
                 e.preventDefault();
-                let id=$(this).data('user');
+                let id=$(this).data('id');
                 $('#msg').html('');
+                let elm=$(this);
                 $.ajax({
                     type:'get',
-                    url:'/admin/user/delete/'+id,
+                    url:'/worktime/delete/'+id,
                     success:function(data) {
                         if(data=='error'){
                             $('#msg').append('<div class="alert alert-danger">\n' +
-                                '        <p>حذف کاربر ممکن نیست.</p>\n' +
+                                '        <p>حذف ساعت کاری ممکن نیست.</p>\n' +
                                 '    </div>');
                         }
                         else if(data=='success'){
                             $('#msg').append('<div class="alert alert-success">\n' +
-                                '        <p>کاربر مورد نظر با موفقیت حذف گردید.</p>\n' +
+                                '        <p>ساعت کاری مورد نظر با موفقیت حذف گردید.</p>\n' +
                                 '    </div>');
+                            elm.closest('tr').remove();
                         }
                     }
                 });

@@ -28,7 +28,6 @@ class UserRequest extends FormRequest
             'fname' => 'required|string|max:255',
             'user_image' => 'image',
             'date_employment' => 'string|max:255',
-            'branch_work' => 'string|max:255',
             'user_description' => 'nullable|string|max:255',
         ];
 
@@ -51,15 +50,25 @@ class UserRequest extends FormRequest
     public function messages()
     {
         return [
-            'title.required' => 'A title is required',
-            'body.required' => 'A message is required',
+            'required' => 'وارد کردن :attribute الزامی می باشد',
+            'numeric' =>':attribute باید از نوع عددی باشد ',
+            'string' =>':attribute باید از نوع رشته باشد '
         ];
     }
 
     public function attributes()
     {
         return [
-            'email' => 'email address',
+            'fname' => 'نام',
+            'lname' => 'نام خانوادگی',
+            'email' => 'ادرس ایمیل',
+            'phone_number' => 'شماره تماس',
+            'code' => 'کد ملی',
+            'password' => 'پسورد',
+            'branch_work' => 'شاخه کاری',
+            'user_image' => 'عکس',
+            'user_description' => 'توضیحات',
+            'date_employment' => 'تاریخ استخدام',
         ];
     }
 }

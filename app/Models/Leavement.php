@@ -9,9 +9,9 @@ class Leavement extends Model
 {
     use HasFactory;
 
-    protected $primaryKey='leavement_id';
+    protected $primaryKey='id';
 
-    protected $guarded=['leavement_id'];
+    protected $guarded=['id'];
 
     public function user()
     {

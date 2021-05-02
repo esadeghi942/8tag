@@ -47,11 +47,11 @@
             <div class="card-header">
                 <h3 class="card-title">ورود به سایت</h3>
             </div>
-            @include('admin.partials.notifications')
+            @include('user.partials.notifications')
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="card-body">
-                    @include('users.partials.errors')
+                    @include('user.partials.errors')
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-2 control-label">تلفن</label>
 

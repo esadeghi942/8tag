@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>پنل مدیریت | شروع سریع</title>
+    <title>پنل مدیریت</title>
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="/plugins/font-awesome/css/font-awesome.min.css">
@@ -17,11 +17,8 @@
     <!-- bootstrap rtl -->
     <link rel="stylesheet" href="/css/bootstrap-rtl.min.css">
     <link rel="stylesheet" href="/css/persian-datepicker.min.css">
-
-    <!-- template rtl version -->
     <link rel="stylesheet" href="/css/custom-style.css">
-
-    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="/css/jquery.dataTables.min.css" rel="stylesheet">
 
     <!-- jQuery -->
     <script src="/plugins/jquery/jquery.min.js"></script>
@@ -33,10 +30,16 @@
     <script src="/js/persian-date.min.js"></script>
     <script src="/js/persian-datepicker.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+    <script src="/js/jquery.validate.js"></script>
 
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-
+    <script src="/js/jquery.dataTables.min.js"></script>
+    <style>
+        .dataTables_wrapper{
+            width: 100%;
+            overflow: auto;
+            padding: 20px;
+        }
+    </style>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
