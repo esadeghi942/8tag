@@ -10,7 +10,7 @@
                     <div class="card-body">
                         @include('user.partials.errors')
                         <div class="row">
-                            <div class="form-group col-lg-4">
+                           {{-- <div class="form-group col-lg-4">
                                 <label for="input" class="control-label">تاریخ</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -21,6 +21,16 @@
                                     <input id="date" name="date"
                                            value="{{old('date',isset($worktimeItem) ? $worktimeItem->date: '')}}"
                                            class="normal-example form-control initial-value-type-example" required/>
+                                </div>
+                            </div>--}}
+                            <div class="form-group col-lg-4">
+                                <label for="input" class="control-label">تایخ</label>
+                                <div class="form-group">
+                                    <select id="date" name="date" class="form-control">
+                                        @foreach($dates as $date)
+                                            <option {{old('date',isset($worktimeItem) && $worktimeItem->date ==$date) ?'selected': ''}} value="{{$date}}">{{$date}}</option>
+                                            @endforeach
+                                        </select>
                                 </div>
                             </div>
                             <div class="form-group col-lg-4">

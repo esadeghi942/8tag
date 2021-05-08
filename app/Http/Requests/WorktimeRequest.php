@@ -27,10 +27,10 @@ class WorktimeRequest extends FormRequest
         return [
             'date'=>'string|required',
             'time_start'=>'string|required',
-            'time_finish'=>'string|required',
-            'total'=>'numeric|required',
-            'reduce'=>'numeric|required',
-            'teleworking'=>'numeric|required',
+            'time_finish'=>'string|required|after:time_start',
+            'total'=>'numeric|required|min:0',
+            'reduce'=>'numeric|required|min:0',
+            'teleworking'=>'numeric|required|min:0|',
         ];
     }
 
@@ -39,7 +39,9 @@ class WorktimeRequest extends FormRequest
     {
         return [
             'required' => 'وارد کردن :attribute الزامی می باشد',
-            'numeric' =>':attribute باید از نوع عددی باشد '
+            'numeric' =>':attribute باید از نوع عددی باشد ',
+            'after' =>' ساعت خروج باید بیشتر از ساعت شروع باشد.',
+            'min'=>'حداقل مقدار ورودی :attribute عدد صفر است. '
         ];
     }
 

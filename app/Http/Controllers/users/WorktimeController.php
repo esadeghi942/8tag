@@ -21,7 +21,11 @@ class WorktimeController extends Controller
 
     public function create()
     {
-        return view('user.worktime.create');
+        $dates=[];
+        for($i=0;$i<7;$i++){
+            $dates[]=Jalalian::now()->subDays($i)->format('%A, %d %B %Y');
+        }
+        return view('user.worktime.create',compact('dates'));
     }
 
     public function store(WorktimeRequest $request)
@@ -51,8 +55,12 @@ class WorktimeController extends Controller
     {
         if ($worktime_id && ctype_digit($worktime_id)) {
             $worktimeItem = worktime::find($worktime_id);
+            $dates=[];
+            for($i=0;$i<7;$i++){
+                $dates[]=Jalalian::now()->subDays($i)->format('%A, %d %B %Y');
+            }
             if ($worktimeItem && $worktimeItem instanceof worktime) {
-                return view('user.worktime.edit', compact('worktimeItem'));
+                return view('user.worktime.edit', compact('worktimeItem','dates'));
             }
         }
     }
