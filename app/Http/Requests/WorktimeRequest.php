@@ -28,9 +28,9 @@ class WorktimeRequest extends FormRequest
             'date'=>'string|required',
             'time_start'=>'string|required',
             'time_finish'=>'string|required|after:time_start',
-            'total'=>'numeric|required|min:0',
+            //'total'=>'numeric|required|min:0',
             'reduce'=>'numeric|required|min:0',
-            'teleworking'=>'numeric|required|min:0|',
+            'teleworking'=>'numeric|required|min:0',
         ];
     }
 

@@ -33,6 +33,7 @@
     <script src="/js/jquery.validate.js"></script>
 
     <script src="/js/jquery.dataTables.min.js"></script>
+
     <style>
         .dataTables_wrapper{
             width: 100%;
@@ -52,6 +53,5 @@
 
     @include('admin/partials/footer')
 </div>
-
 </body>
 </html>

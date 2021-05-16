@@ -24,11 +24,19 @@ class LeavementRequest extends FormRequest
      */
     public function rules()
     {
-        return  ['type'=>'string|required',
-            'start'=>'string|required',
-            'finish'=>'string|required',
-            'date_count'=>'numeric|required',
-            'description'=>'string|required'];
+        if ($this->request->get('type') == 1) {
+            return ['type' => 'string|required',
+                'start' => 'string|required',
+                'finish' => 'string|required',
+                'description' => 'string|required'];
+        }
+        else if($this->request->get('type') == 2) {
+            return ['type' => 'string|required',
+                'time_start' => 'string|required',
+                'time_finish' => 'string|required|after:time_start',
+                //'date_count'=>'numeric|required',
+                'description' => 'string|required'];
+        }
     }
 
     public function messages()
@@ -36,7 +44,8 @@ class LeavementRequest extends FormRequest
         return [
             'required' => 'وارد کردن :attribute الزامی می باشد',
             'numeric' =>':attribute باید از نوع عددی باشد ',
-            'string' =>':attribute باید از نوع رشته باشد '
+            'string' =>':attribute باید از نوع رشته باشد ',
+            'after' =>' زمان پایان باید بیشتر از زمان شروع باشد.'
         ];
     }
 

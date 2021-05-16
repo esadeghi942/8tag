@@ -1,7 +1,7 @@
 @extends('layouts.index')
-
 @section('content')
     <div class="content-wrapper">
+        {{ Breadcrumbs::render('user.leavement.index')}}
         <section class="content">
             @include('user.partials.notifications')
             <div class="container-fluid">
@@ -27,6 +27,9 @@
     <script type="text/javascript">
         $(function () {
             var table = $('.data-table').DataTable({
+                language: {
+                    "url": "http://cdn.datatables.net/plug-ins/1.10.24/i18n/Persian.json"
+                },
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('user.leavement.data') }}",
@@ -54,26 +57,29 @@
         $(document).ready(function () {
             $(document).on('click','.delete',function (e) {
                 e.preventDefault();
-                let id=$(this).data('id');
-                $('#msg').html('');
-                let elm=$(this);
-                $.ajax({
-                    type:'get',
-                    url:'/leavement/delete/'+id,
-                    success:function(data) {
-                        if(data=='error'){
-                            $('#msg').append('<div class="alert alert-danger">\n' +
-                                '        <p>حذف مرخصی ممکن نیست.</p>\n' +
-                                '    </div>');
+                var confirm=window.confirm('Are You Sure To Delete?');
+                if (confirm) {
+                    let id = $(this).data('id');
+                    $('#msg').html('');
+                    let elm = $(this);
+                    $.ajax({
+                        type: 'get',
+                        url: '/leavement/delete/' + id,
+                        success: function (data) {
+                            if (data == 'error') {
+                                $('#msg').append('<div class="alert alert-danger">\n' +
+                                    '        <p>حذف مرخصی ممکن نیست.</p>\n' +
+                                    '    </div>');
+                            }
+                            else if (data == 'success') {
+                                $('#msg').append('<div class="alert alert-success">\n' +
+                                    '        <p>درخواست مرخصی مورد نظر با موفقیت حذف گردید.</p>\n' +
+                                    '    </div>');
+                                elm.closest('tr').remove();
+                            }
                         }
-                        else if(data=='success'){
-                            $('#msg').append('<div class="alert alert-success">\n' +
-                                '        <p>درخواست مرخصی مورد نظر با موفقیت حذف گردید.</p>\n' +
-                                '    </div>');
-                            elm.closest('tr').remove();
-                        }
-                    }
-                });
+                    });
+                }
             });
         });
     </script>

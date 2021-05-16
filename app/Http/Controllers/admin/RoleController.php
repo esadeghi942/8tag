@@ -31,8 +31,8 @@ class RoleController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function(Role $role){
-                    $actionBtn = '<a href="/admin/role/edit/'.$role->id.'" class="edit btn btn-success btn-sm">ویرایش</a>
-                                  <a data-id="'.$role->id.'" class="delete btn btn-danger btn-sm">حذف</a>';
+                    $actionBtn = '<a href="/admin/role/edit/'.$role->id.'" class="edit btn btn-success btn-sm"><span title="ویرایش" class="fa fa-edit"></span></a>
+                                  <a data-id="'.$role->id.'" class="delete btn btn-danger btn-sm"><span title="حذف" class="fa fa-trash"></span></a>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])

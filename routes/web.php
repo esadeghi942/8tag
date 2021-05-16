@@ -76,7 +76,7 @@ Route::group(['prefix' => 'admin','middleware'=>'admin'], function () {
     Route::get('/leavement/agree/{leavement_id}',[AdminLeavementController::class,'agree'])->name('admin.leavement.agree');
     Route::get('/leavement/disagree/{leavement_id}',[AdminLeavementController::class,'disagree'])->name('admin.leavement.disagree');
 
-    Route::get('/user/{user_id}/worktime',[AdminWorktimeController::class,'index']);
+    Route::get('/user/{user_id}/worktime',[AdminWorktimeController::class,'index'])->name('admin.worktime.index');
     Route::get('/user/{user_id}/dataworktime',[AdminWorktimeController::class,'data'])->name('admin.user.worktime');
 
 

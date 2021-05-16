@@ -5,6 +5,8 @@ namespace App\Http\Controllers\users;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\WorktimeRequest;
 use App\Models\Worktime;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -22,8 +24,13 @@ class WorktimeController extends Controller
     public function create()
     {
         $dates=[];
+        $user_id=Auth::id();
+        $worktimes=Worktime::all()->where('user_id',$user_id)->pluck('date')->toArray();
+
         for($i=0;$i<7;$i++){
-            $dates[]=Jalalian::now()->subDays($i)->format('%A, %d %B %Y');
+            $dd=Jalalian::now()->subDays($i)->format('%A ,%Y/%m/%d');
+            if(!in_array($dd,$worktimes))
+                $dates[]=$dd;
         }
         return view('user.worktime.create',compact('dates'));
     }
@@ -32,12 +39,15 @@ class WorktimeController extends Controller
     {
         $request->validated();
         $user=Auth::id();
+        $dteStart = new DateTime($request->time_start);
+        $dteEnd   = new DateTime($request->time_finish);
+        $total=$dteStart->diff($dteEnd)->format("%H:%I:%s");
         worktime::create([
             'date' => $request->date,
             'time_start' => $request->time_start,
             'time_finish' => $request->time_finish,
             'reduce' => intval($request->reduce),
-            'total' => intval($request->total),
+            'total' => $total,
             'teleworking' => intval($request->teleworking),
             'description' => $request->description,
             'user_id' => $user
@@ -46,18 +56,13 @@ class WorktimeController extends Controller
 
     }
 
-    public function show($id)
-    {
-        //
-    }
-
     public function edit($worktime_id)
     {
         if ($worktime_id && ctype_digit($worktime_id)) {
             $worktimeItem = worktime::find($worktime_id);
             $dates=[];
             for($i=0;$i<7;$i++){
-                $dates[]=Jalalian::now()->subDays($i)->format('%A, %d %B %Y');
+                $dates[]=Jalalian::now()->subDays($i)->format('%A ,%Y/%m/%d');
             }
             if ($worktimeItem && $worktimeItem instanceof worktime) {
                 return view('user.worktime.edit', compact('worktimeItem','dates'));
@@ -69,12 +74,20 @@ class WorktimeController extends Controller
     {
         $request->validated();
         $worktime=Worktime::find($worktime_id);
+        /*$tStart=explode(':',$request->time_start);
+        $tEnd=explode(':',$request->time_finish);
+        $tStart =  Carbon::createFromTime($tStart[0],$tStart[1]);
+        $tEnd   =  Carbon::createFromTime($tEnd[0],$tEnd[1]);
+        $total=$dteDiff  = $tStart->diffInMinutes($tEnd); */
+        $dteStart = new DateTime($request->time_start);
+        $dteEnd   = new DateTime($request->time_finish);
+        $total = $dteStart->diff($dteEnd)->format("%H:%I:%S");
         $inputs = [
             'date' => $request->date,
             'time_start' => $request->time_start,
             'time_finish' => $request->time_finish,
             'reduce' => intval($request->reduce),
-            'total' => intval($request->total),
+            'total' => $total,
             'teleworking' => intval($request->teleworking),
             'description' => $request->description,
         ];
@@ -104,9 +117,13 @@ class WorktimeController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function(Worktime $wt){
-                    $actionBtn = '<a href="'.route('user.worktime.edit',$wt->id).'" class="edit btn btn-success btn-sm">ویرایش</a>
-                                  <a data-id="'.$wt->id.'" class="delete btn btn-danger btn-sm">حذف</a>';
+                    $actionBtn = '<a href="'.route('user.worktime.edit',$wt->id).'" class="edit btn btn-success btn-sm"><span title="ویرایش" class="fa fa-edit"></span></a>
+                                  <a data-id="'.$wt->id.'" class="delete btn btn-danger btn-sm"><span title="حذف" class="fa fa-trash"></span></a>';
                     return $actionBtn;
+                })->
+                editColumn('total',function ($row){
+                    $total =Carbon::createFromFormat('H:i:s',$row->total);
+                    return $total->format('H:i');
                 })
                 ->rawColumns(['action'])
                 ->make(true);

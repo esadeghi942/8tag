@@ -12,7 +12,8 @@
         <!-- Theme style -->
         <link rel="stylesheet" href="/css/adminlte.css">
         <!-- Google Font: Source Sans Pro -->
-        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+{{--
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">--}}
 
         <!-- bootstrap rtl -->
         <link rel="stylesheet" href="/css/bootstrap-rtl.min.css">
@@ -36,6 +37,10 @@
 
         <script src="/js/jquery.validate.js"></script>
         <script src="/js/jquery.dataTables.min.js"></script>
+
+        <link rel="stylesheet" href="/css/timepicker.min.css">
+        <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+        <script src="/js/timepicker.min.js"></script>
         <style>
                 .dataTables_wrapper{
                         width: 100%;

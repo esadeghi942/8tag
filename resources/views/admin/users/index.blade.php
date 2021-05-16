@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 @section('content')
     <div class="content-wrapper">
+        {{ Breadcrumbs::render('admin.user.index')}}
         <section class="content">
             @include('admin.partials.notifications')
             <div class="container-fluid">
@@ -8,13 +9,12 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0">
-                                    <table class="table table-bordered data-table">
-                                        <thead>
-                                        @include('admin.users.columns')
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
+                                <table class="table table-bordered data-table">
+                                    <thead>
+                                    @include('admin.users.columns')
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
                             </div>
                         </div>
                         <!-- /.card -->
@@ -26,6 +26,9 @@
     <script type="text/javascript">
         $(function () {
             var table = $('.data-table').DataTable({
+                language: {
+                    "url": "http://cdn.datatables.net/plug-ins/1.10.24/i18n/Persian.json"
+                },
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('admin.user.data') }}",
@@ -48,26 +51,29 @@
         $(document).ready(function () {
             $(document).on('click','.delete',function (e) {
                 e.preventDefault();
-                let id=$(this).data('user');
-                $('#msg').html('');
-                let elm=$(this);
-                $.ajax({
-                    type:'get',
-                    url:'/admin/user/delete/'+id,
-                    success:function(data) {
-                        if(data=='error'){
-                            $('#msg').append('<div class="alert alert-danger">\n' +
-                                '        <p>حذف کاربر ممکن نیست.</p>\n' +
-                                '    </div>');
+                var confirm=window.confirm('Are You Sure To Delete?');
+                if(confirm) {
+                    let id = $(this).data('user');
+                    $('#msg').html('');
+                    let elm = $(this);
+                    $.ajax({
+                        type: 'get',
+                        url: '/admin/user/delete/' + id,
+                        success: function (data) {
+                            if (data == 'error') {
+                                $('#msg').append('<div class="alert alert-danger">\n' +
+                                    '        <p>حذف کاربر ممکن نیست.</p>\n' +
+                                    '    </div>');
+                            }
+                            else if (data == 'success') {
+                                $('#msg').append('<div class="alert alert-success">\n' +
+                                    '        <p>کاربر مورد نظر با موفقیت حذف گردید.</p>\n' +
+                                    '    </div>');
+                                elm.closest('tr').remove();
+                            }
                         }
-                        else if(data=='success'){
-                            $('#msg').append('<div class="alert alert-success">\n' +
-                                '        <p>کاربر مورد نظر با موفقیت حذف گردید.</p>\n' +
-                                '    </div>');
-                            elm.closest('tr').remove();
-                        }
-                    }
-                });
+                    });
+                }
             });
         });
     </script>

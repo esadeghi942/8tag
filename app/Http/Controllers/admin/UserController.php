@@ -29,10 +29,17 @@ class UserController extends Controller
     {
         if ($request->ajax()) {
             $data = User::latest()->get();
+
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->editColumn('user_image', function(User $user){
-                    return url('user_image\\').$user->user_image;
+                    return $user->user_image ?url('user_image\\').$user->user_image:'';
+                })
+                ->editColumn('phone_number',function ($row){
+                    return $row->phone_number;
+                })
+                ->editColumn('code',function ($row){
+                    return $row->code;
                 })
                 ->addColumn('name', function(User $user){
                     return $user->fname. '  '.$user->lname ;
@@ -41,9 +48,9 @@ class UserController extends Controller
                     return implode(',',$user->roles()->get()->pluck('title')->toArray()) ;
                 })
                 ->addColumn('action', function(User $user){
-                    $actionBtn = '<a href="/admin/user/edit/'.$user->user_id.'" class="edit btn btn-success btn-sm">ویرایش</a>
-                                  <a href="/admin/user/'.$user->user_id.'/worktime" class="btn btn-success btn-sm">ساعت کاری</a>
-                                  <a data-user="'.$user->user_id.'" class="delete btn btn-danger btn-sm">حذف</a>';
+                    $actionBtn = '<a href="/admin/user/edit/'.$user->user_id.'" class="edit btn btn-success btn-sm"><span title="ویرایش" class="fa fa-edit"></span></a>
+                                  <a href="/admin/user/'.$user->user_id.'/worktime" class="btn btn-success btn-sm"><span title="ساعات کاری" class="fa fa-tasks"></span></a>
+                                  <a data-user="'.$user->user_id.'" class="delete btn btn-danger btn-sm"><span title="حذف" class="fa fa-trash"></span></a>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action','name','branch_work'])

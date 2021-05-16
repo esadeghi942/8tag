@@ -52,7 +52,14 @@ class UserRequest extends FormRequest
         return [
             'required' => 'وارد کردن :attribute الزامی می باشد',
             'numeric' =>':attribute باید از نوع عددی باشد ',
-            'string' =>':attribute باید از نوع رشته باشد '
+            'string' =>':attribute باید از نوع رشته باشد ',
+            'unique' =>':attribute قبلا در سیستم ثبت شده است ',
+            'email' =>':attribute باید به فرمت ایمیل باشد ',
+            'max' =>':attribute باید حداکثر 255 کاراکتر ',
+            'min' =>':attribute باید حداقل 6 کاراکتر ',
+            'regex' =>'فرمت :attribute صحیح نیست',
+            'confirmed' =>'تایید  :attribute صحیح نیست',
+            'size' =>'سایز  :attribute صحیح نیست',
         ];
     }
 

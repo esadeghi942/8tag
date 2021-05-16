@@ -42,13 +42,13 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{route('admin.user.index')}}" class="nav-link">
-                                    {{--<i class="nav-icon fa fa-address-card-o">--}}</i>
+                                    <i class="nav-icon fa fa-circle-o"></i>
                                     <p class="text">لیست کاربران</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('admin.user.create')}}" class="nav-link">
-                                    {{--<i class="nav-icon fa fa-address-card-o"></i>--}}
+                                    <i class="nav-icon fa fa-circle-o"></i>
                                     <p class="text">ثبت کاربر جدید</p>
                                 </a>
                             </li>
@@ -73,13 +73,13 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{route('admin.role.index')}}" class="nav-link">
-                                    {{--<i class="nav-icon fa fa-address-card-o">--}}</i>
+                                    <i class="nav-icon fa fa-circle-o"></i>
                                     <p class="text">لیست</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('admin.role.create')}}" class="nav-link">
-                                    {{--<i class="nav-icon fa fa-address-card-o"></i>--}}
+                                    <i class="nav-icon fa fa-circle-o"></i>
                                     <p class="text">ثبت جدید</p>
                                 </a>
                             </li>

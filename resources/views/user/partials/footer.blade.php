@@ -18,10 +18,5 @@
                 }
             });
         }
-        if($('.timepicker').length>0) {
-            $('.timepicker').datetimepicker({
-                format: 'H:mm'
-            });
-        }
     });
 </script>

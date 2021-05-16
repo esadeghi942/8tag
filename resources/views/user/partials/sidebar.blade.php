@@ -39,11 +39,13 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{route('user.worktime.create')}}" class="nav-link">
+                                    <i class="nav-icon fa fa-circle-o"></i>
                                     <p>ثبت ساعت کاری</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('user.worktime.index')}}" class="nav-link">
+                                    <i class="nav-icon fa fa-circle-o"></i>
                                     <p>لیست ساعات کاری</p>
                                 </a>
                             </li>
@@ -60,11 +62,13 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{route('user.leavement.create')}}" class="nav-link">
+                                    <i class="nav-icon fa fa-circle-o"></i>
                                     <p>ثبت مرخصی</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('user.leavement.index')}}" class="nav-link">
+                                    <i class="nav-icon fa fa-circle-o"></i>
                                     <p>لیست مرخصی ها</p>
                                 </a>
                             </li>

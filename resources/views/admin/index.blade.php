@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
+        {{ Breadcrumbs::render('admin')}}
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">

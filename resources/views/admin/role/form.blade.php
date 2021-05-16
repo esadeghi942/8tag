@@ -1,5 +1,10 @@
-
 <div class="content-wrapper">
+    <?php
+    if(isset($roleItem))
+        echo Breadcrumbs::render('admin.role.edit',$roleItem);
+    else
+        echo Breadcrumbs::render('admin.role.create');
+    ?>
     <section class="content-header">
         <div class="container-fluid">
             <div class="card">

@@ -13,7 +13,7 @@ class LeavementController extends Controller
 {
     public function index()
     {
-        return view('admin.leavement.list');
+        return view('admin.leavement.index');
     }
 
     public function agree($leavement_id)

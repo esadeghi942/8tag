@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="content-wrapper">
+        {{ Breadcrumbs::render('admin.leavement.index')}}
         <section class="content">
             @include('admin.partials.notifications')
             <div class="container-fluid">
@@ -27,6 +28,9 @@
     <script type="text/javascript">
         $(function () {
             var table = $('.data-table').DataTable({
+                language: {
+                    "url": "http://cdn.datatables.net/plug-ins/1.10.24/i18n/Persian.json"
+                },
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('admin.leavement.data') }}",
