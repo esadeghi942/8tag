@@ -18,7 +18,7 @@
                                     <label for="input" class="control-label">عنوان</label>
                                     <div class="input-group">
                                         <input type="text" id="title" name="title"
-                                               value="{{old('title',isset($roleItem) ? $roleItem->title: '')}}"
+                                               value="{{old('title',isset($roleItem) ? $roleItem->name: '')}}"
                                                class="form-control direction_ltr" required/>
                                     </div>
                                 </div>

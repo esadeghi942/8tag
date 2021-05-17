@@ -4,7 +4,6 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +11,8 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Session;
 use Yajra\DataTables\Facades\DataTables;
+use Spatie\Permission\Models\Role;
+
 
 class UserController extends Controller
 {
@@ -45,7 +46,7 @@ class UserController extends Controller
                     return $user->fname. '  '.$user->lname ;
                 })
                 ->addColumn('branch_work', function(User $user){
-                    return implode(',',$user->roles()->get()->pluck('title')->toArray()) ;
+                    return implode(',',$user->roles->pluck('name')->all()) ;
                 })
                 ->addColumn('action', function(User $user){
                     $actionBtn = '<a href="/admin/user/edit/'.$user->user_id.'" class="edit btn btn-success btn-sm"><span title="ویرایش" class="fa fa-edit"></span></a>
@@ -82,9 +83,8 @@ class UserController extends Controller
             'date_employment' => $request->date_employment,
             'user_description' => $request->user_description
         ]);
-        if($request->has('branch_work')){
-            $new_user->roles()->sync($request->input('branch_work'));
-        }
+        if($request->has('branch_work'))
+            $new_user->assignRole($request->input('branch_work'));
         return redirect()->route('admin.user.index')->with('success', 'کاربر جدید با موفقیت ثبت گردید.');
     }
 
@@ -92,8 +92,8 @@ class UserController extends Controller
     {
         if ($user_id && ctype_digit($user_id)) {
             $userItem = User::find($user_id);
-            $roles=Role::all();
-            $userrole=$userItem->roles()->get()->pluck('id')->toArray();
+            $roles = Role::all();
+            $userrole = $userItem->roles->pluck('id')->toArray();
             return view('admin.users.edit', compact('userItem','roles','userrole'));
             }
     }
@@ -125,8 +125,10 @@ class UserController extends Controller
         if($request->file('user_image')=== null) {
             unset($inputs['user_image']);
         }
+        //$user->roles()->sync($request->input('branch_work'));
         if($request->has('branch_work'))
-            $user->roles()->sync($request->input('branch_work'));
+            $user->assignRole($request->input('branch_work'));
+
         $update = $user->update($inputs);
         if ($update) {
             return redirect()->route('admin.user.index')->with('success', 'کاربر با موفقیت به روز رسانی شد.');

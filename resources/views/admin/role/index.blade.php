@@ -35,7 +35,7 @@
                 ajax: "{{ route('admin.role.data') }}",
                 columns: [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                    {data: 'title', name: 'title'},
+                    {data: 'name', name: 'name'},
                     {data: 'action', name: 'action', orderable: false, searchable: false},
                 ]
             });

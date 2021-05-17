@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Role;
+use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -49,28 +49,11 @@ class RoleController extends Controller
     public function store(Request $request)
     {
        $request->validate(['title'=>'required|string']);
-       Role::create(['title'=>$request->title]);
+       Role::create(['name'=>$request->title]);
        return redirect()->route('admin.role.index')->with('success', 'شاخه کاری جدید با موفقیت ثبت گردید.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+       public function edit($id)
     {
         $roleItem=Role::find($id);
         return view('admin.role.edit',compact('roleItem'));
@@ -87,7 +70,7 @@ class RoleController extends Controller
     {
         $request->validate(['title'=>'required|string']);
         $role=Role::find($id);
-        $role->update(['title'=>$request->title]);
+        $role->update(['name'=>$request->title]);
         return redirect()->route('admin.role.index')->with('success', 'شاخه کاری جدید با موفقیت ویرایش گردید.');
     }
 

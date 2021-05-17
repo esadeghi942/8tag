@@ -140,7 +140,7 @@
                                                     @foreach($roles as $role)
                                                         <div class="form-check">
                                                             <input class="form-check-input" name="branch_work[]" type="checkbox" value="{{$role->id}}" {{old('branch_work',isset($userItem) && in_array($role->id,$userrole)) ? 'checked': '' }}>
-                                                            <label class="form-check-label">{{$role->title}}</label>
+                                                            <label class="form-check-label">{{$role->name}}</label>
                                                         </div>
                                                     @endforeach
                                                 </div>
