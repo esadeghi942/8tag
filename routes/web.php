@@ -8,6 +8,7 @@ use App\Http\Controllers\users\WorktimeController;
 use App\Http\Controllers\admin\WorktimeController as AdminWorktimeController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\RoleController;
+use App\Http\Controllers\admin\AdminController;
 
 
 /*
@@ -52,7 +53,7 @@ Route::group([/*'namespace' => 'users' ,*/'middleware'=>'auth'],function () {
 });
 
 Route::group(['prefix' => 'admin','middleware'=>'admin'], function () {
-    Route::view('/', 'admin.index')->name('admin');
+    Route::get('/',[AdminController::class,'index'])->name('admin');
     Route::get('/roledata',[RoleController::class,'data'])->name('admin.role.data');
     Route::get('/role',[RoleController::class,'index'])->name('admin.role.index');
     Route::get('/role/create',[RoleController::class,'create'])->name('admin.role.create');
